@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YolenSong | 个人主页</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --tag-bg: #1f6feb22;
+      --tag-border: #1f6feb;
+      --green: #3fb950;
+      --purple: #bc8cff;
+      --orange: #f0883e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-hover); }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .hero-tags span {
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid var(--tag-border);
+      background: var(--tag-bg);
+      color: var(--accent);
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .social-links a:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Section */
+    .section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-desc {
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+
+    /* Project Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .project-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+    .project-card h3 a { color: var(--text); }
+    .project-card h3 a:hover { color: var(--accent); }
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+    .project-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .project-meta .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .project-meta .stars { color: var(--orange); }
+    .project-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .project-links a {
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: border-color 0.2s;
+    }
+    .project-links a:hover { border-color: var(--accent); }
+
+    /* Articles */
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .article-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+      color: var(--text);
+    }
+    .article-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .article-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.4;
+      min-width: 36px;
+    }
+    .article-content h4 { font-size: 1rem; margin-bottom: 4px; }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Tech Stack */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .tech-category h4 {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .tech-category .tech-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tech-item {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    /* AI Section */
+    .ai-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .ai-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ai-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-2px);
+    }
+    .ai-card .ai-icon { font-size: 2rem; margin-bottom: 10px; }
+    .ai-card h4 { font-size: 0.95rem; margin-bottom: 6px; }
+    .ai-card p { font-size: 0.82rem; color: var(--text-secondary); }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 0;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 48px 0 32px; }
+      .hero h1 { font-size: 1.6rem; }
+      .social-links { flex-direction: column; align-items: center; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+      .ai-highlights { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <img class="hero-avatar" src="https://github.com/songyaolun.png" alt="avatar" />
+      <h1>YolenSong</h1>
+      <p class="subtitle">Back-End Developer · AI Enthusiast · Vibe Coder</p>
+      <div class="hero-tags">
+        <span>Java</span>
+        <span>Go</span>
+        <span>Python</span>
+        <span>C++</span>
+        <span>LLM</span>
+        <span>Vibe Coding</span>
+        <span>Distributed Systems</span>
+      </div>
+      <div class="social-links">
+        <a href="https://github.com/songyaolun" target="_blank">🐙 GitHub</a>
+        <a href="https://www.zhihu.com/people/ba-mo-jue" target="_blank">🔵 知乎</a>
+        <a href="javascript:void(0)" title="微信公众号：Yolen的奇思妙想">💬 公众号：Yolen的奇思妙想</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Featured Projects -->
+    <section class="section">
+      <h2 class="section-title">📌 Featured Projects</h2>
+      <p class="section-desc">我的开源项目与技术实践</p>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <h3><a href="https://github.com/songyaolun/transformer-from-scratch" target="_blank">transformer-from-scratch</a></h3>
+          <p>从零开始用 PyTorch 手写一个完整的 Transformer 模型，完成中英翻译任务。包含 5 篇系列教程、Colab Notebook、注意力可视化。</p>
+          <div class="project-meta">
+            <span><span class="lang-dot" style="background:#3572A5"></span> Jupyter Notebook</span>
+            <span class="stars">⭐ 31</span>
+            <span>🍴 2</span>
+          </div>
+          <div class="project-links">
+            <a href="https://songyaolun.github.io/transformer-from-scratch/" target="_blank">📖 在线阅读</a>
+            <a href="https://github.com/songyaolun/transformer-from-scratch" target="_blank">💻 GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3><a href="https://github.com/songyaolun/syl_ai_zone" target="_blank">syl_ai_zone</a></h3>
+          <p>AI 项目作品集：AI 穿搭助手（字节 AI 黑客松）、AI 驱动微信小程序、技术分享与实践记录。</p>
+          <div class="project-meta">
+            <span><span class="lang-dot" style="background:#3572A5"></span> Python</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/songyaolun/syl_ai_zone" target="_blank">💻 GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3><a href="https://github.com/songyaolun/visual-articles-explained" target="_blank">visual-articles-explained</a></h3>
+          <p>技术文章配套可视化讲解专栏，用交互式 HTML 帮助深入理解核心概念。</p>
+          <div class="project-meta">
+            <span><span class="lang-dot" style="background:#e34c26"></span> HTML</span>
+          </div>
+          <div class="project-links">
+            <a href="https://songyaolun.github.io/visual-articles-explained/" target="_blank">📖 在线阅读</a>
+            <a href="https://github.com/songyaolun/visual-articles-explained" target="_blank">💻 GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Transformer Series -->
+    <section class="section">
+      <h2 class="section-title">📝 从零实现 Transformer 系列</h2>
+      <p class="section-desc">五天一篇，一周学完，从小白到手写完整 Transformer</p>
+      <div class="article-list">
+        <a class="article-item" href="https://songyaolun.github.io/transformer-from-scratch/" target="_blank">
+          <span class="article-num">01</span>
+          <div class="article-content">
+            <h4>环境与前期准备</h4>
+            <p>张量操作、nn.Module、常用层、训练流程</p>
+          </div>
+        </a>
+        <a class="article-item" href="https://songyaolun.github.io/transformer-from-scratch/" target="_blank">
+          <span class="article-num">02</span>
+          <div class="article-content">
+            <h4>数据处理与 Transformer 输入层</h4>
+            <p>词表构建、Padding、Embedding、位置编码</p>
+          </div>
+        </a>
+        <a class="article-item" href="https://songyaolun.github.io/transformer-from-scratch/" target="_blank">
+          <span class="article-num">03</span>
+          <div class="article-content">
+            <h4>多头注意力机制与核心组件</h4>
+            <p>注意力公式、FFN、残差连接、Encoder / Decoder Layer</p>
+          </div>
+        </a>
+        <a class="article-item" href="https://songyaolun.github.io/transformer-from-scratch/" target="_blank">
+          <span class="article-num">04</span>
+          <div class="article-content">
+            <h4>模型组装</h4>
+            <p>Mask、Encoder、Decoder、完整 Transformer</p>
+          </div>
+        </a>
+        <a class="article-item" href="https://songyaolun.github.io/transformer-from-scratch/" target="_blank">
+          <span class="article-num">05</span>
+          <div class="article-content">
+            <h4>训练、推理与可视化</h4>
+            <p>损失函数、训练循环、Greedy Decode、注意力可视化</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Visual Articles -->
+    <section class="section">
+      <h2 class="section-title">🎨 可视化文章专栏</h2>
+      <p class="section-desc">用交互式可视化帮助理解技术概念</p>
+      <div class="article-list">
+        <a class="article-item" href="https://songyaolun.github.io/visual-articles-explained/" target="_blank">
+          <span class="article-num">01</span>
+          <div class="article-content">
+            <h4>如何写好一篇文章（可视化讲解）</h4>
+            <p>交互式 HTML，边看边玩</p>
+          </div>
+        </a>
+      </div>
+      <p style="margin-top: 16px;">
+        <a href="https://songyaolun.github.io/visual-articles-explained/" target="_blank">→ 查看全部可视化文章</a>
+      </p>
+    </section>
+
+    <!-- AI & LLM -->
+    <section class="section">
+      <h2 class="section-title">🤖 AI & LLM</h2>
+      <p class="section-desc">持续关注 AI 前沿，探索 LLM 应用与 Vibe Coding 实践</p>
+      <div class="ai-highlights">
+        <div class="ai-card">
+          <div class="ai-icon">🧠</div>
+          <h4>LLM 应用开发</h4>
+          <p>RAG · Agent · Prompt Engineering</p>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon">⚡</div>
+          <h4>Vibe Coding</h4>
+          <p>AI 辅助编程，提升开发效率与代码质量</p>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon">🔬</div>
+          <h4>模型前沿追踪</h4>
+          <p>GPT · Claude · Llama · DeepSeek</p>
+        </div>
+        <div class="ai-card">
+          <div class="ai-icon">🏗️</div>
+          <h4>AI Infra</h4>
+          <p>模型部署 · 推理优化 · 云原生 AI</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section">
+      <h2 class="section-title">🛠 Tech Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-category">
+          <h4>Languages</h4>
+          <div class="tech-items">
+            <span class="tech-item">Java</span>
+            <span class="tech-item">Go</span>
+            <span class="tech-item">Python</span>
+            <span class="tech-item">C++</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h4>Frameworks</h4>
+          <div class="tech-items">
+            <span class="tech-item">Spring</span>
+            <span class="tech-item">MySQL</span>
+            <span class="tech-item">Redis</span>
+            <span class="tech-item">Nginx</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h4>AI & ML</h4>
+          <div class="tech-items">
+            <span class="tech-item">PyTorch</span>
+            <span class="tech-item">TensorFlow</span>
+            <span class="tech-item">LangChain</span>
+            <span class="tech-item">OpenAI</span>
+          </div>
+        </div>
+        <div class="tech-category">
+          <h4>DevOps</h4>
+          <div class="tech-items">
+            <span class="tech-item">Docker</span>
+            <span class="tech-item">Jenkins</span>
+            <span class="tech-item">Git</span>
+            <span class="tech-item">Linux</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 YolenSong · Built with ❤️</p>
+      <p style="margin-top:4px;">
+        <a href="https://github.com/songyaolun" target="_blank">GitHub</a> ·
+        <a href="https://www.zhihu.com/people/ba-mo-jue" target="_blank">知乎</a> ·
+        微信公众号：Yolen的奇思妙想
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
